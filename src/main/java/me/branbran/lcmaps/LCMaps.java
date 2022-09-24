@@ -7,7 +7,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 import me.branbran.gui.GUI;
 import me.branbran.lcmaps.commands.MenuCommand;
 
-
 public class LCMaps extends JavaPlugin
 {
     public static GUI menuGui;
