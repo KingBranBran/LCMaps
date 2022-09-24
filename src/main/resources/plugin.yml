@@ -1,0 +1,12 @@
+main: me.branbran.lcmaps.LCMaps
+name: LCMaps
+version: 1.0
+
+description: Contains the gui for linkcraft maps!
+depend: [BranBits]
+
+commands:
+  menu:
+    description: Open the linkcraft maps menu.
+    permission: lcmaps.menu
+    
