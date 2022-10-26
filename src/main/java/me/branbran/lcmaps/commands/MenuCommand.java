@@ -5,7 +5,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import me.branbran.lcmaps.LCMaps;
+import me.branbran.lcmaps.guis.MapsGUI;
 
 public class MenuCommand implements CommandExecutor {
 
@@ -15,7 +15,7 @@ public class MenuCommand implements CommandExecutor {
         if (sender instanceof Player) {
             Player player = (Player) sender;
 
-            LCMaps.menuGui.open(player);
+            MapsGUI.openMenu(player);
         }
 
         return true;

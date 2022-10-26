@@ -1,36 +1,40 @@
 package me.branbran.lcmaps;
 
-import org.bukkit.Material;
-import org.bukkit.inventory.ItemStack;
+import java.io.File;
+import java.io.IOException;
+
 import org.bukkit.plugin.java.JavaPlugin;
 
-import me.branbran.gui.GUI;
 import me.branbran.lcmaps.commands.MenuCommand;
+import me.branbran.lcmaps.guis.MapsGUI;
+import me.branbran.lcmaps.guis.util.GUIListener;
 
 public class LCMaps extends JavaPlugin
 {
-    public static GUI menuGui;
-
     @Override
-    @SuppressWarnings("deprecation")
     public void onEnable() {
         getLogger().info("Starting LCMaps!");
+
+        // Make sure the required files exist.
+        try {
+            if (!getDataFolder().exists())
+                getDataFolder().mkdir();
+            File maps = new File(getDataFolder(), "maps.toml");
+            if (!maps.exists())
+                maps.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // Setup GUI listeners
+        new GUIListener(this);
+
+        // Setup commands
         getCommand("menu").setExecutor(new MenuCommand());
 
-        menuGui = GUI.createGui(9, "Maps");
-
-        ItemStack[] items = new ItemStack[9];
-
-        for (int i = 0; i < items.length; i++)
-            items[i] = new ItemStack(Material.getMaterial(35), i + 1, (short) i);
-        
-        menuGui.init(items);
-
-        menuGui.onClick(e -> {
-            e.setCancelled(true);
-            e.getWhoClicked().sendMessage("You click slot " + e.getSlot());
-        });
-    }
+        // Setup menus
+        MapsGUI.init(this);     
+    } 
 
     @Override
     public void onDisable() {
