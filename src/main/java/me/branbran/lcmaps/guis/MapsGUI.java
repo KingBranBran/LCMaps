@@ -1,12 +1,14 @@
 package me.branbran.lcmaps.guis;
 
 import java.io.File;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
 import org.bukkit.Material;
 import org.bukkit.entity.HumanEntity;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -26,6 +28,7 @@ public final class MapsGUI {
         pluginFolderPath = plugin.getDataFolder();
         maps = new HashMap<>();
         loadMaps();
+        createMenuItems();
     }
 
     public static void loadMaps() {
@@ -37,6 +40,7 @@ public final class MapsGUI {
         LinkedList<Toml> tomlMaps = new LinkedList<>(tomls);
 
         int mapNum = tomlMaps.size();
+        System.out.println("size is " + mapNum);
 
         // For hashmap, set the key to be the index, and value to be the Map class.
         for (int i = 0; i < mapNum; i++)
@@ -62,6 +66,8 @@ public final class MapsGUI {
             lore.add("PP: " + m.pp);
             lore.add("Length: " + m.length);
 
+            System.out.println("put in " + m.name);
+
             ItemMeta im = is.getItemMeta();
             im.setDisplayName(m.name);
             im.setLore(lore);
@@ -74,6 +80,17 @@ public final class MapsGUI {
 
     public static void openMenu(HumanEntity player) {
         GUI menu = GUI.createGui(27, "Linkcraft Maps");
+        ItemStack[] items = Arrays.copyOfRange(mapItems, 0, 27);
+        Inventory inv = menu.getInv();
+
+        for (int i = 0; i < items.length; i++)
+            inv.setItem(i, items[i]);
+
+        // delete menu when its closed
+        menu.onClose = (g, e) -> {
+            g.delete();
+        };
+
         menu.open(player);
     }
 

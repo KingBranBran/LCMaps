@@ -26,14 +26,14 @@ public class LCMaps extends JavaPlugin
             e.printStackTrace();
         }
 
-        // Setup GUI listeners
+        // Setup GUI stuff
         new GUIListener(this);
 
         // Setup commands
         getCommand("menu").setExecutor(new MenuCommand());
 
         // Setup menus
-        MapsGUI.init(this);     
+        MapsGUI.init(this);
     } 
 
     @Override
