@@ -5,6 +5,7 @@ import java.util.HashMap;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -31,6 +32,13 @@ public class GUIListener implements Listener {
         GUI gui = guis.get(e.getInventory());
         if (gui != null)
             gui.onDrag.run(e);
+    }
+
+    @EventHandler
+    public void onInventoryClose(InventoryCloseEvent e) {
+        GUI gui = guis.get(e.getInventory());
+        if (gui != null)
+            gui.onClose.run(gui, e);
     }
 }
 
